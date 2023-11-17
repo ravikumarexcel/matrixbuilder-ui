@@ -4,8 +4,12 @@ import React, { useState } from 'react';
 import './Login.css';
 import logo from './../../logo.svg';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const Login = () => {
+  // Define the API endpoint
+  const apiUrl = 'http://localhost:3002/users/1';
+
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +23,26 @@ const Login = () => {
   }
 
   const handleLogin = () => {
-    console.log('Login ', { username, password });
-    navigate('/profile');
+    try {
+
+      console.log('Login ', { username, password });
+      axios
+        .get(apiUrl)
+        .then(response => {
+          console.log(response.data);
+          console.log('Response after GET request:', response);
+          // Get the token from the response
+          const token = response.data.token;
+          // Save the token to localStorage or a secure storage method
+          localStorage.setItem('token', token);
+          navigate('/dashboard');
+        })
+        .catch(error => console.log(error));
+
+       
+    } catch (error) {
+      console.error('Login failed:', error.message);
+    }
   }
 
   return (
