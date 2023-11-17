@@ -3,22 +3,25 @@ import React, { useState } from 'react';
 // import { Button } from 'react-bootstrap';
 import './Login.css';
 import logo from './../../logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-const [username, setUsername] = useState('');
-const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-const handleUsernameChange =(e) =>{
-  setUsername(e.target.value);
-}
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  }
 
-const handlePassword = (e) =>{
-  setPassword(e.target.value);
-}
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  }
 
-const handleLogin = () =>{
-  console.log('Login ', {username, password});
-}
+  const handleLogin = () => {
+    console.log('Login ', { username, password });
+    navigate('/profile');
+  }
 
   return (
     <div>
